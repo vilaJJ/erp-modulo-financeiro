@@ -1,0 +1,122 @@
+{% load moeda %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Confirmação de Exclusão - Contas a Receber</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f8f9fa;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .navbar {
+        background-color: #0d6efd;
+      }
+
+      .navbar-brand,
+      .nav-link {
+        color: white !important;
+        font-weight: 500;
+      }
+
+      .nav-buttons a {
+        margin-left: 1rem;
+      }
+
+      .nav-link:hover {
+        text-decoration: underline;
+      }
+
+      .main-container {
+        padding: 2rem;
+        padding-top: 3rem;
+        max-width: 600px;
+        margin: auto;
+      }
+
+      .alert-box {
+        background-color: #fff3cd;
+        border: 1px solid #ffeeba;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        color: #856404;
+        margin-bottom: 2rem;
+        box-shadow: 0 0 10px rgba(255, 193, 7, 0.3);
+      }
+
+      .details {
+        background-color: white;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        margin-bottom: 2rem;
+      }
+
+      .details p {
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+
+      .btn-space {
+        margin-right: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid px-4">
+        <a class="navbar-brand" href="/financeiro">Módulo Financeiro</a>
+        <div class="ms-auto nav-buttons d-flex">
+          <a class="nav-link" href="/financeiro/contas/pagar">Contas a Pagar</a>
+          <a class="nav-link" href="/financeiro/contas/receber">Contas a Receber</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="main-container">
+      <div class="alert-box" role="alert">
+        <h5 class="mb-3">Contas a Receber - Atenção!</h5>
+        <p>
+          Você está prestes a excluir a seguinte conta a receber. Essa ação é
+          irreversível.
+        </p>
+      </div>
+
+      <div class="details">
+        <p>
+          <strong>Código do cliente: </strong
+          >{{conta_a_receber.codigo_cliente}}
+        </p>
+        <p><strong>Descrição:</strong> {{conta_a_receber.descricao}}</p>
+        <p><strong>Valor:</strong> {{conta_a_receber.valor|moeda_brl}}</p>
+        <p>
+          <strong>Data prevista:</strong>
+          {{conta_a_receber.data_prevista|date:'d/m/Y'}}
+        </p>
+      </div>
+
+      <div class="d-flex justify-content-end">
+        <form
+          method="POST"
+          action="/financeiro/contas/receber/excluir/{{conta_a_receber.id}}"
+        >
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger btn-space">
+            Excluir
+          </button>
+          <a href="/financeiro/contas/receber" class="btn btn-secondary">
+            Cancelar
+          </a>
+        </form>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

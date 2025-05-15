@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Módulo Financeiro - Tela Inicial</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f8f9fa;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .navbar {
+        background-color: #0d6efd;
+      }
+
+      .navbar-brand,
+      .nav-link {
+        color: white !important;
+        font-weight: 500;
+      }
+
+      .nav-link:hover {
+        text-decoration: underline;
+      }
+
+      .nav-buttons a {
+        margin-left: 1rem;
+      }
+
+      .content-container {
+        min-height: calc(100vh - 56px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+      }
+
+      .info-card {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+        width: 100%;
+        max-width: 800px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid px-4">
+        <a class="navbar-brand" href="/financeiro">Módulo Financeiro</a>
+        <div class="ms-auto nav-buttons d-flex">
+          <a class="nav-link" href="/financeiro/contas/pagar">Contas a Pagar</a>
+          <a class="nav-link" href="/financeiro/contas/receber">Contas a Receber</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="content-container">
+      <div class="info-card">
+        <h4 class="mb-3">Finalidade do Trabalho</h4>
+        <p class="text-muted">
+          Trabalho acadêmico desenvolvido por estudantes do 5° período do curso superior em 
+          Análise e Desenvolvimento de Sistemas, do IFTO Campus Araguaína, na disciplina de 
+          Desenvolvimento Orientado a Serviços, ministrado pelo professor Paulo Ricardo da
+          Silva Pontes.
+        </p>
+        <p class="text-muted">
+          Este trabalho contém implementações básicas voltadas para um módulo financeiro de um
+          sistema ERP. Este trabalho será evoluido posteriormente, para que seja integrado com 
+          os demais módulos de ERP, desenvolvido por outros estudantes da turma.
+        </p>
+        
+        <h6>Desenvolvido por:</h6>
+        <ul>
+          <li>Beatriz Coelho dos Santos (<a href="https://www.linkedin.com/in/beatriz-coelho-134973270/" target="_blank">LindkedIn</a>)</li>
+          <li>Juan Felipe Alves Flores (<a href="https://www.linkedin.com/in/juan-felipe-alves-flores/" target="_blank">LindkedIn</a>)</li>
+          <li>Sara Ghabrielly de Oliveira Silva (<a href="https://www.linkedin.com/in/sara-ghabrielly/" target="_blank">LindkedIn</a>)</li>
+        <ul>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
