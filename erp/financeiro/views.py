@@ -2,9 +2,22 @@ from datetime import datetime
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from .models import ContaPagar, ContaReceber
+from rest_framework import viewsets, permissions
+from .serializers import ContaPagarSerializer, ContaReceberSerializer
 from .utils import moeda_para_float
+import requests
 
 # Create your views here.
+
+class ContaPagarViewSet(viewsets.ModelViewSet):
+    queryset = ContaPagar.objects.all()
+    serializer_class = ContaPagarSerializer
+    permission_classes = [permissions.AllowAny]
+
+class ContaReceberViewSet(viewsets.ModelViewSet):
+    queryset = ContaReceber.objects.all()
+    serializer_class = ContaReceberSerializer
+    permission_classes = [permissions.AllowAny]
 
 def exibir_tela_inicial(request):
     return render(request, "financeiro_index.html")
@@ -30,16 +43,7 @@ def registrar_contas_a_pagar(request):
         conta_a_pagar.save()
         return HttpResponseRedirect("/financeiro/contas/pagar")
 
-    fornecedores = [
-        {
-            "id": 1,
-            "nome": "Temperos Distribuidora"
-        },
-        {
-            "id": 2,
-            "nome": "TO Distribuidora"
-        },
-    ]
+    fornecedores = _obter_fornecedores()
     return render(request, "registrar_contas_a_pagar.html", {"fornecedores": fornecedores})
 
 def registrar_contas_a_receber(request):
@@ -55,16 +59,7 @@ def registrar_contas_a_receber(request):
         conta_a_receber.save()
         return HttpResponseRedirect("/financeiro/contas/receber")
 
-    clientes = [
-        {
-            "id": 1,
-            "nome": "Allan Batista"
-        },
-        {
-            "id": 2,
-            "nome": "Samylla Marinho"
-        },
-    ]
+    clientes = _obter_clientes()
     return render(request, "registrar_contas_a_receber.html", {"clientes": clientes})
 
 def editar_contas_a_pagar(request, id):
@@ -80,16 +75,7 @@ def editar_contas_a_pagar(request, id):
         conta_a_pagar.save()
         return HttpResponseRedirect("/financeiro/contas/pagar")
     
-    fornecedores = [
-        {
-            "id": 1,
-            "nome": "Temperos Distribuidora"
-        },
-        {
-            "id": 2,
-            "nome": "TO Distribuidora"
-        },
-    ]
+    fornecedores = _obter_fornecedores()
     return render(request, "editar_contas_a_pagar.html", {"conta_a_pagar": conta_a_pagar, "fornecedores": fornecedores})
 
 def editar_contas_a_receber(request, id):
@@ -105,16 +91,7 @@ def editar_contas_a_receber(request, id):
         conta_a_receber.save()
         return HttpResponseRedirect("/financeiro/contas/receber")
     
-    clientes = [
-        {
-            "id": 1,
-            "nome": "Allan Batista"
-        },
-        {
-            "id": 2,
-            "nome": "Samylla Marinho"
-        },
-    ]
+    clientes = _obter_clientes()
     return render(request, "editar_contas_a_receber.html", {"conta_a_receber": conta_a_receber, "clientes": clientes})
 
 def excluir_contas_a_pagar(request, id):
@@ -134,3 +111,12 @@ def excluir_contas_a_receber(request, id):
         return HttpResponseRedirect("/financeiro/contas/receber")
     
     return render(request, "excluir_contas_a_receber.html", {"conta_a_receber": conta_a_receber})
+
+def _obter_clientes():
+    response = requests.get("https://macielbrabo.pythonanywhere.com/clientes/clientes/")
+    return response.json()
+
+def _obter_fornecedores():
+    response = requests.get("https://habini86.pythonanywhere.com/fornecedor/fornecedores", 
+                            auth=("admin", "12345"))
+    return response.json()
